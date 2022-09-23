@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -21,31 +22,40 @@ func newManatee(identifier int, age int, weight int, mf gender) manatee {
 	return p
 }
 
-func manateeInput(s string) []string {
-	num := strings.Fields(s)
-	return num
+func manateeInput(s string) []int {
+	var mTee []int
+	for _, f := range strings.Fields(s) {
+		i, err := strconv.Atoi(f)
+		if err == nil {
+			mTee = append(mTee, i)
+		}
+	}
+	//num := strings.Fields(s)
+	return mTee
 }
 func main() {
 
 	fmt.Println("Input number of manatees in a row")
 	var rowNum int
-	fmt.Scanln(&rowNum)
+	fmt.Scanln(&rowNum) // this lowkey does not matter at all
 	fmt.Println("Input manatee array")
 
 	scanner := bufio.NewScanner(os.Stdin)
-	num := make([][]string, 0) // Declare a slice to receive other slices inside it
+	num := make([][]int, 0) // Declare a slice to receive other slices inside it
 
 	for scanner.Scan() { // Scrolls all typed data to true
 
-		// If the user does not type anything, that is, if he presses Enter an interrupt will occur
+		// If the user does not type anything, that is, if they press Enter an interrupt will occur
 		if scanner.Text() == "" {
 			break
 		} else {
 			num = append(num, manateeInput(scanner.Text())) // Adding the slice inside list
 		}
 	}
-
-	fmt.Println(num) // print list
+	for _, value := range num {
+		fmt.Printf("%d\n", value)
+	}
+	//4fmt.Println(num) // print list
 
 }
 
